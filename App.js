@@ -1,12 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
+import Navigator from './routes/homeStack';
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>FLIP !T !</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Navigator />
   );
 }
 
