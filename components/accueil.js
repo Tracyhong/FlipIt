@@ -7,15 +7,19 @@ export default function Accueil({ navigation }) {
   const profil = () => {
     navigation.navigate('Profil')
   }
-  const connexion = () => {
-    navigation.navigate('Connexion')
+  const listDeck = () => {
+    navigation.navigate('ListDeck')
+  }
+  const deck = () => {
+    navigation.navigate('Deck')
   }
 
   return (
     <View style={styles.container}>
       <Text>FlipIt!</Text>
       <Button title='Profil' onPress={profil}/>
-      <Button title='Connexion' onPress={connexion}/>
+      <Button title='ListDeck' onPress={listDeck}/>
+      <Button title='Deck' onPress={deck}/>
       <StatusBar style="auto" />
     </View>
   );

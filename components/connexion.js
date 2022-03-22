@@ -4,7 +4,12 @@ import 'react-native-gesture-handler';
 /*import {useState} from 'react';
 const [email, setEmail ] = useState('');
 const [password , setPassword ] = useState( '' ) ;*/
-export default function Connexion() {
+
+
+export default function Connexion({navigation}) {
+  const accueil = () => {
+    navigation.push('ListDeck')   //modif redirection apres connexion //mettre Accueil pour acceder a la page accueil avec les autres boutons
+  }
   return (
     <View style={styles.container}>
       <Image
@@ -39,8 +44,8 @@ export default function Connexion() {
         //value={password}
         //onChangeText={(password) => setPassword(password)}
       />
-
-      <TouchableOpacity style={styles.loginBtn}>
+       {/* a modifier ici juste pour pouvoir faire le lien vers la page d'accueil */}
+      <TouchableOpacity style={styles.loginBtn} onPress={accueil}>  
           <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
       <TouchableOpacity>
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
       alignItems:"center",
       justifyContent:"center",
       backgroundColor:'#00A2E8',
-      color:'#fff',
+      color:'#fff', //marche pas pour mettre le text en blanc
       marginBottom: 30,
       marginTop: 30,
   }
