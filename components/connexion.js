@@ -14,7 +14,7 @@ export default function Connexion({navigation}) {
     <View style={styles.container}>
       <Image
           style={styles.tinyLogo}
-          source={require('../assets/Flip!t.png')}
+          source={require('../assets/FlipIt.png')}
       />
       <TextInput style={styles.input}
         editable

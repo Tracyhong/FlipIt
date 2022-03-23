@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
-import Navigator from './routes/homeStack';
+import Navigator from './routes/index';
 
 export default function App() {
   return (
