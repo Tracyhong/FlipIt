@@ -27,8 +27,8 @@ export default function Deck(){
                <Image style={styles.content} source={require('../assets/images/france.png')} /> 
            </Text>
            <Text>Pour l'instant ya que un drapeau de la france parce que jsais pas faire pour que ca soit dynamique et jai la flemme aussi ... et en plus le drapeau n'est pas responsive mdr</Text>
-           <TouchableOpacity style={styles.next}>  
-                <Text>NEXT</Text>
+           <TouchableOpacity style={styles.next} /*onPress={}*/>  
+                <Text style={styles.buttonText}>NEXT</Text>
             </TouchableOpacity>
         </View>
     );
@@ -58,15 +58,18 @@ const styles = StyleSheet.create({
         //textAlignVertical:'center',
     },
     next:{
-        height: 40,
+      height: 40,
       width:'80%',
       borderRadius:25,
       alignItems:"center",
       justifyContent:"center",
       backgroundColor:'#00A2E8',
-      color:'#fff', //marche pas pour mettre le text en blanc
       marginBottom: 30,
       marginTop: 30,
+    },
+    buttonText:{
+        fontWeight: 'bold',
+        color:'#fff',
     },
     content:{
         position:'absolute',

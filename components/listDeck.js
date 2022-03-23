@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, FlatList,TouchableOpacity } from 'react-native';
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+
 export default function ListDeck({navigation}){
     const deck = () => {
-        navigation.push('Deck')   //modif redirection apres connexion
-      }
+        navigation.navigate('Deck')   //modif redirection apres connexion
+    }
     const DATA = [
         {
           id: 'Pays',
@@ -19,14 +20,12 @@ export default function ListDeck({navigation}){
           title: 'Animaux/Pets',
         },
       ];
-      const Item = ({ title }) => (
-        
-            <View style={styles.item}>
-                <TouchableOpacity onPress={deck}>  
-                <Text style={styles.title}>{title}</Text>
-        </TouchableOpacity>
-                
-            </View>
+      const Item = ({ title }) => ( 
+        <View style={styles.item}>
+          <TouchableOpacity onPress={deck}>  
+            <Text style={styles.title}>{title}</Text>
+          </TouchableOpacity>
+        </View>
       );
       const renderItem = ({ item }) => (
         <Item title={item.title} />
@@ -34,15 +33,7 @@ export default function ListDeck({navigation}){
     return (
         <View style={styles.container}>
             <LinearGradient 
-                colors={['#fff', '#00A2E8']} 
-                start={{
-                    x: 0,
-                    y: 0.6
-                }}
-                end={{
-                    x: 1.4,
-                    y: 2
-                }}
+                colors={['#00A2E8', '#fff']} 
                 style={styles.gradient} 
             />
             <FlatList style={styles.flatList}
@@ -66,7 +57,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         position:'absolute',
-        zIndex:0
       },
     flatList:{
         marginTop:10,

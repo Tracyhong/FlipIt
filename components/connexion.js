@@ -8,7 +8,7 @@ const [password , setPassword ] = useState( '' ) ;*/
 
 export default function Connexion({navigation}) {
   const accueil = () => {
-    navigation.push('ListDeck')   //modif redirection apres connexion //mettre Accueil pour acceder a la page accueil avec les autres boutons
+    navigation.navigate('ListDeck')   //modif redirection apres connexion //mettre Accueil pour acceder a la page accueil avec les autres boutons
   }
   return (
     <View style={styles.container}>
@@ -46,10 +46,10 @@ export default function Connexion({navigation}) {
       />
        {/* a modifier ici juste pour pouvoir faire le lien vers la page d'accueil */}
       <TouchableOpacity style={styles.loginBtn} onPress={accueil}>  
-          <Text style={styles.loginText}>LOGIN</Text>
+          <Text style={styles.loginText}>SE CONNECTER</Text>
       </TouchableOpacity>
       <TouchableOpacity>
-          <Text style={styles.signup_button}>Sign up ?</Text>
+          <Text>Pas encore inscrit ?</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
@@ -77,10 +77,6 @@ const styles = StyleSheet.create({
       borderRadius:15,
       padding: 10,
   },
-  signup_button: {
-      height: 30,
-      marginTop: 30,
-  },
   loginBtn:{
       height: 40,
       width:'80%',
@@ -91,5 +87,9 @@ const styles = StyleSheet.create({
       color:'#fff', //marche pas pour mettre le text en blanc
       marginBottom: 30,
       marginTop: 30,
+  },
+  loginText:{
+    color: 'white',
+    fontWeight: 'bold',
   }
 });
