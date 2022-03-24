@@ -5,7 +5,7 @@ import Profil from '../components/profil';
 import Connexion from '../components/connexion';
 import ListDeck from '../components/listDeck';
 import Deck from '../components/deck';
-import { Image } from 'react-native';
+import Inscription from '../components/inscription';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -18,6 +18,7 @@ export default function Index() {
       <Drawer.Navigator initialRouteName="Accueil">
         <Drawer.Screen name="Accueil" component={Accueil} />
         <Drawer.Screen name="Connexion" component={Connexion} />
+        <Drawer.Screen name="Inscription" component={Inscription} />
         <Drawer.Screen name="Profil" component={Profil} />
         <Drawer.Screen name="ListDeck" component={ListDeck} />
         <Drawer.Screen name="Deck" component={Deck} />

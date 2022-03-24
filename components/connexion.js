@@ -1,15 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,Image,TextInput,TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
-/*import {useState} from 'react';
-const [email, setEmail ] = useState('');
-const [password , setPassword ] = useState( '' ) ;*/
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {useState} from 'react';
 
-
-export default function Connexion({navigation}) {
+const Connexion = ({navigation}) => {
   const accueil = () => {
     navigation.navigate('ListDeck')   //modif redirection apres connexion //mettre Accueil pour acceder a la page accueil avec les autres boutons
   }
+
+  const [email, setEmail] = useState('');
+  const [mdp, setMdp] = useState('');
+  const connexion = () => {
+      signInWithEmailAndPassword(auth, email, mdp)
+      .then((re) => {
+        navigation.navigate('ListDeck');
+      })
+      .catch((re) => {console.log(re)});
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -20,20 +30,20 @@ export default function Connexion({navigation}) {
         editable
         maxLength={50}
         //leftIcon='email'  //je sais pas ca sert a quoi
-        placeholder='Enter email'
+        placeholder='Email'
         autoCapitalize='none'
         keybordType='email-address'
         textContentType='emailAddress'
         autoFocus={true}
-        //value={email}
-        //onChangeText={(email) => setEmail(email)}
+        value={email}
+        onChangeText={text => setEmail(text)}
 
       />
       <TextInput style={styles.input}
         editable
         maxLength={50}
         //leftIcon='lock' //je sais pas ca sert a quoi
-        placeholder='Enter password'
+        placeholder='Mot de passe'
         autoCapitalize='none'
         autoCorrect={false}
         textContentType='password'
@@ -41,13 +51,14 @@ export default function Connexion({navigation}) {
 
         secureTextEntry={true}
 
-        //value={password}
-        //onChangeText={(password) => setPassword(password)}
+        value={mdp}
+        onChangeText={text => setMdp(text)}
+
       />
        {/* a modifier ici juste pour pouvoir faire le lien vers la page d'accueil */}
-      <TouchableOpacity style={styles.loginBtn} onPress={accueil}>  
+      <TouchableOpacity style={styles.loginBtn} onPress={connexion}>  
           <Text style={styles.loginText}>SE CONNECTER</Text>
-      </TouchableOpacity>
+        </TouchableOpacity>
       <TouchableOpacity>
           <Text>Pas encore inscrit ?</Text>
       </TouchableOpacity>
@@ -55,6 +66,8 @@ export default function Connexion({navigation}) {
     </View>
   );
 }
+
+export default Connexion;
 
 const styles = StyleSheet.create({
   container: {
