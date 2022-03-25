@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 import 'react-native-gesture-handler';
 import { auth } from '../firebase';
 import { signOut } from "firebase/auth";
+import {useEffect, useState} from 'react';
 
 const Profil = ({navigation}) =>  {
   const DATA = [
@@ -28,17 +29,21 @@ const Profil = ({navigation}) =>  {
     <Item title={item.title} />
   );
 
-  const deconnexion = () => (
+  const deconnexion = () => {
     signOut(auth)
     .then((re)=>{
+      console.log(auth.currentUser);
       navigation.navigate('Accueil');
     })
     .catch((err)=>{
       console.log(err);
     })
-  );
+  };
 
-  const user = auth.currentUser;
+  const [user, setUser] = useState('');
+  useEffect(() => {
+    setUser(auth.currentUser);
+  }, []);
 
   return (
     <View style={styles.container}>
