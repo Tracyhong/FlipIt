@@ -17,6 +17,10 @@ const Connexion = ({navigation}) => {
       .catch((re) => {console.log(re)});
   }
 
+  const connexion = () => {
+    navigation.navigate('Connexion');
+  }
+
   
   return (
     <View style={styles.container}>
@@ -52,10 +56,10 @@ const Connexion = ({navigation}) => {
 
       />
       <TouchableOpacity style={styles.loginBtn} onPress={inscription}>  
-          <Text style={styles.loginText}>INSCRIPTION</Text>
+          <Text style={styles.loginText}>S'INSCRIRE</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
-          <Text>Pas encore inscrit ?</Text>
+      <TouchableOpacity onPress={connexion}>
+          <Text>Déjà inscrit ?</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>

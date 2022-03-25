@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,Image,TextInput,TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import { auth } from '../firebase';
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import {useState} from 'react';
 
 const Connexion = ({navigation}) => {
@@ -18,6 +18,10 @@ const Connexion = ({navigation}) => {
         navigation.navigate('ListDeck');
       })
       .catch((re) => {console.log(re)});
+  }
+
+  const inscription = () => {
+    navigation.navigate('Inscription');
   }
 
   return (
@@ -59,7 +63,7 @@ const Connexion = ({navigation}) => {
       <TouchableOpacity style={styles.loginBtn} onPress={connexion}>  
           <Text style={styles.loginText}>SE CONNECTER</Text>
         </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={inscription}>
           <Text>Pas encore inscrit ?</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
