@@ -7,7 +7,9 @@ import ListDeck from '../components/listDeck';
 import Deck from '../components/deck';
 import Inscription from '../components/inscription';
 
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList, } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
@@ -15,10 +17,48 @@ const Drawer = createDrawerNavigator();
 export default function Index() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Accueil">
-        <Drawer.Screen name="Accueil" component={Accueil} />
-        <Drawer.Screen name="Connexion" component={Connexion} />
-        <Drawer.Screen name="Inscription" component={Inscription} />
+      <Drawer.Navigator
+      initialRouteName="Accueil"
+        screenOptions={{
+          activeTintColor: '#00A2E8',
+          itemStyle: {padding: 0},
+        }}
+        //pour enlever les trucs du menu mais ca fonctionne pas donc jai mis en com 
+        // drawerContent={(props) => {
+        //   const filteredProps = {
+        //     ...props,
+        //     state: {
+        //       ...props.state,
+        //       routeNames: props.state.routeNames.filter(
+        //         // To hide single option
+        //         // (routeName) => routeName !== 'HiddenPage1',
+        //         // To hide multiple options you can add & condition
+        //         (routeName) => {
+        //           routeName !== 'Connexion'
+        //           && routeName !== 'Inscription';
+        //         },
+        //       ),
+        //       // routes: props.state.routes.filter(
+        //       //   (route) =>
+        //       //     route.name !== 'Connexion'
+        //       //     && route.name !== 'Inscription',
+        //       // ),
+        //     },
+        //   };
+        //   return (
+        //     <DrawerContentScrollView {...filteredProps}>
+        //       <DrawerItemList {...filteredProps} />
+        //     </DrawerContentScrollView>
+        //   );
+        // }}
+        >
+        {/* 
+        headerShown:false //pour enlever le header
+        swipeEdgeWidth: 0 // pour enlever le swipe 
+        */}
+        <Drawer.Screen options={{headerShown:false, swipeEdgeWidth: 0,}} name="Connexion" component={Connexion} />
+        <Drawer.Screen options={{headerShown:false, swipeEdgeWidth: 0,}} name="Inscription" component={Inscription} />
+        <Drawer.Screen options={{headerShown:false, swipeEdgeWidth: 0,}} name="Accueil" component={Accueil} />
         <Drawer.Screen name="Profil" component={Profil} />
         <Drawer.Screen name="ListDeck" component={ListDeck} />
         <Drawer.Screen name="Deck" component={Deck} />
