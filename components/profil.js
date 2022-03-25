@@ -3,11 +3,8 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 import 'react-native-gesture-handler';
 import { auth } from '../firebase';
 import { signOut } from "firebase/auth";
-<<<<<<< HEAD
 import {useEffect, useState} from 'react';
-=======
 import { EvilIcons } from '@expo/vector-icons';
->>>>>>> 3d59ac444efd9b73455f41dac2a08b169fa159e1
 
 const Profil = ({navigation}) =>  {
   const DATA = [
@@ -51,9 +48,9 @@ const Profil = ({navigation}) =>  {
 
   return (
     <View style={styles.container}>
-      <EvilIcons name="user" size={80} color="#237B7B" />
-      <Text style={{fontSize:20, color:"#237B7B"}}>{user.email}</Text>
-      <Text style={{paddingTop:30, fontSize:20, fontWeight:'bold' ,alignSelf:'center', color:'#237B7B'}}>Mes listes</Text>
+      <EvilIcons name="user" size={80} color="#00A2E8" />
+      <Text style={{fontSize:20, color:"#00A2E8"}}>{user.email}</Text>
+      <Text style={{paddingTop:30, fontSize:20, fontWeight:'bold' ,alignSelf:'center', color:'#00A2E8'}}>Mes listes</Text>
       <StatusBar style="auto" />
             <FlatList style={styles.flatList}
                 data={DATA}
@@ -105,7 +102,7 @@ item: {
   },
   title: {
     fontSize: 20,
-    color:'#237B7B'
+    color:'#00A2E8'
   },
   logOutBtn:{
     height: 45,
@@ -113,7 +110,7 @@ item: {
     borderRadius:25,
     alignItems:"center",
     justifyContent:"center",
-    backgroundColor:'#237B7B',
+    backgroundColor:'#00A2E8',
     marginBottom: 45,
     marginTop: 20,
 },
