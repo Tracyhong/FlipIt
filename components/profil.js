@@ -3,7 +3,11 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 import 'react-native-gesture-handler';
 import { auth } from '../firebase';
 import { signOut } from "firebase/auth";
+<<<<<<< HEAD
 import {useEffect, useState} from 'react';
+=======
+import { EvilIcons } from '@expo/vector-icons';
+>>>>>>> 3d59ac444efd9b73455f41dac2a08b169fa159e1
 
 const Profil = ({navigation}) =>  {
   const DATA = [
@@ -47,17 +51,18 @@ const Profil = ({navigation}) =>  {
 
   return (
     <View style={styles.container}>
-      <Text>Email : {user.email}</Text>
-      <TouchableOpacity style={styles.logOutBtn} onPress={deconnexion}>  
-          <Text style={styles.logOutText}>SE DECONNECTER</Text>
-      </TouchableOpacity>
-      <Text>Mes decks</Text>
+      <EvilIcons name="user" size={80} color="#237B7B" />
+      <Text style={{fontSize:20, color:"#237B7B"}}>{user.email}</Text>
+      <Text style={{paddingTop:30, fontSize:20, fontWeight:'bold' ,alignSelf:'center', color:'#237B7B'}}>Mes listes</Text>
       <StatusBar style="auto" />
             <FlatList style={styles.flatList}
                 data={DATA}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
+            <TouchableOpacity style={styles.logOutBtn} onPress={deconnexion}>
+              <Text style={styles.logOutText}>SE DECONNECTER</Text>
+            </TouchableOpacity>
     </View>
     
   );
@@ -84,15 +89,15 @@ flatList:{
     height:'100%'
 },
 item: {
-    backgroundColor: '#fff', //e6eeff
+    backgroundColor: '#DAF0FA', //e6eeff
     padding: 28,
     marginVertical: 8,
     marginHorizontal: 16,
     borderRadius:20,
     shadowColor: "#000",
     shadowOffset: {
-        width: 0,
-        height: 1,
+      width: 0,
+      height: 1,
     },
     shadowOpacity: 0.40,
     shadowRadius: 1.41,
@@ -100,16 +105,17 @@ item: {
   },
   title: {
     fontSize: 20,
+    color:'#237B7B'
   },
   logOutBtn:{
-    height: 40,
+    height: 45,
     width:'80%',
     borderRadius:25,
     alignItems:"center",
     justifyContent:"center",
-    backgroundColor:'red',
-    marginBottom: 30,
-    marginTop: 30,
+    backgroundColor:'#237B7B',
+    marginBottom: 45,
+    marginTop: 20,
 },
 logOutText:{
   color: 'white',
