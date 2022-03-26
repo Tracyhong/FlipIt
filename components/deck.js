@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
 import React from 'react';
-
+import FlipCard from 'react-native-flip-card';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 export default function Deck(){
 
  
@@ -22,11 +23,30 @@ export default function Deck(){
 
     return (
         <View style={styles.container}>
-            <Text>Clic to flip ! (mais ca marche pas encore parce que jai rien fait encore j'en ai un peu marre donc si quelquun peut faire aussi ca serait tres cool merci :D  !)</Text>
+            <FlipCard 
+                style={styles.flashcard}
+                friction={8}
+                perspective={1000}
+                flipHorizontal={true}
+                flipVertical={false}
+                flip={false}
+                clickable={true}
+                onFlipEnd={(isFlipEnd)=>{console.log('isFlipEnd', isFlipEnd)}}
+                >
+                {/* Face Side */}
+                <View style={styles.face}>
+                    <Text>The Face</Text>
+                </View>
+                {/* Back Side */}
+                <View style={styles.back}>
+                    <Text>The Back</Text>
+                </View>
+            </FlipCard>
+            {/* <Text>Clic to flip ! (mais ca marche pas encore parce que jai rien fait encore j'en ai un peu marre donc si quelquun peut faire aussi ca serait tres cool merci :D  !)</Text>
            <Text style={styles.flashcard}>
                <Image style={styles.content} source={require('../assets/images/france.png')} /> 
            </Text>
-           <Text>Pour l'instant ya que un drapeau de la france parce que jsais pas faire pour que ca soit dynamique et jai la flemme aussi ... et en plus le drapeau n'est pas responsive mdr</Text>
+           <Text>Pour l'instant ya que un drapeau de la france parce que jsais pas faire pour que ca soit dynamique et jai la flemme aussi ... et en plus le drapeau n'est pas responsive mdr</Text> */}
            <TouchableOpacity style={styles.next} /*onPress={}*/>  
                 <Text style={styles.buttonText}>NEXT</Text>
             </TouchableOpacity>
@@ -43,8 +63,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     flashcard:{
-        height: '60%',
-        width:'80%',
+        height: hp('20%'), // 70% of height device screen  !!!!!!!!! MAIS CA FONCTIONNE PAS 
+        width: wp('80%'),   // 80% of width device screen
         margin: 12,
         borderWidth: 1,
         borderColor:'#BFBFC1',
@@ -55,7 +75,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         textAlign:'center',
-        //textAlignVertical:'center',
+        textAlignVertical:'center',
     },
     next:{
       height: 40,
@@ -71,9 +91,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color:'#fff',
     },
-    content:{
-        position:'absolute',
-        height: 200, 
-        width:200,
-    }
+    // content:{
+    //     position:'absolute',
+    //     height: 200, 
+    //     width:200,
+    // }
 });

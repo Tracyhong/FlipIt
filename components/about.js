@@ -20,13 +20,13 @@ export default function Accueil({ navigation }) {
            par
         </Text>
         <Text>
-            Nahean BADAR
-        </Text>
-        <Text>
             Lorie Chen
         </Text>
         <Text>
             Tracy HONG
+        </Text>
+        <Text>
+            Nahean BADAR
         </Text>
         <Text>
             Mathis Sergent

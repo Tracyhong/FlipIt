@@ -10,16 +10,17 @@ export default function Accueil({ navigation }) {
 
   return (
       <View style={styles.container}>
-        <ImageBackground source={require('../assets/images/imageTest.png')} style={styles.image}>
-        </ImageBackground>
+        <ImageBackground source={require('../assets/images/start.png')} style={styles.image}>
           <Image
             style={styles.logoFlipit}
             source={require('../assets/FlipIt.png')}
           />
-          <Text style={{position: 'absolute', top: 110, left: 50, color: '#fff'}}>Révisez plus facilement en étant rapide et efficace !   </Text>
+          <Text style={styles.txt}> Révisez plus facilement en </Text>
+          <Text style={styles.txt}> étant rapide et efficace !</Text>
           <TouchableOpacity style={styles.btn} onPress={connexion}>
             <Text style={{alignSelf:'center', color:'#fff'}} >Démarrer</Text>
           </TouchableOpacity>
+        </ImageBackground>
         
         <StatusBar style="auto" />
       </View>
@@ -40,11 +41,16 @@ const styles = StyleSheet.create({
     opacity: 0.8
   },
   logoFlipit:{
-    width: 110,
-    height: 60,
-    position:'absolute',
-    top:42,
-    left:50
+    width: '40%',
+    height: '10%',
+    alignSelf:'center',
+    top:60
+  },
+  txt:{
+    top:80,
+    textAlign:'center',
+    fontSize:18,
+    fontWeight:'bold'
   },
   btn:{
     position:'absolute',
