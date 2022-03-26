@@ -10,10 +10,27 @@ export default function Accueil({ navigation }) {
 
   return (
       <View style={styles.container}>
-        <Text>
-            Développé en React Native dans le cadre d'un projet universitaire par Nahean BADAR, Lorie Chen, Tracy HONG, et Mathis Sergent.
+        <Text style={{fontWeight:'bold'}}>
+            Développé en React Native 
         </Text>
-        
+        <Text>
+            dans le cadre d'un projet universitaire
+        </Text>
+        <Text>
+           par
+        </Text>
+        <Text>
+            Nahean BADAR
+        </Text>
+        <Text>
+            Lorie Chen
+        </Text>
+        <Text>
+            Tracy HONG
+        </Text>
+        <Text>
+            Mathis Sergent
+        </Text>
         <StatusBar style="auto" />
       </View>
   );
