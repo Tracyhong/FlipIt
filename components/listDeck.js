@@ -1,44 +1,85 @@
 import { StyleSheet, Text, View, FlatList,TouchableOpacity } from 'react-native';
 import React from 'react';
+import { db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore/lite';
+import {useEffect, useState } from 'react';
 
-export default function ListDeck({navigation}){
-    const deck = () => {
-        navigation.navigate('Deck')   //modif redirection apres connexion
-    }
-    const DATA = [
-        {
-          id: 'Pays',
-          title: 'Drapeaux',
-        },
-        {
-          id: 'Maths',
-          title: 'Calculs',
-        },
-        {
-          id: 'Animaux',
-          title: 'Animaux/Pets',
-        },
-      ];
-      const Item = ({ title }) => ( 
-        <View style={styles.item}>
-          <TouchableOpacity onPress={deck}>  
-            <Text style={styles.title}>{title}</Text>
-          </TouchableOpacity>
-        </View>
-      );
-      const renderItem = ({ item }) => (
-        <Item title={item.title} />
-      );
-    return (
-        <View style={styles.container}>
-            <FlatList style={styles.flatList}
-                data={DATA}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-            />
-        </View>
-    );
+export default function ListDeck () {
+  const deck = ({navigation}) => {
+    navigation.navigate('Deck')   //modif redirection apres connexion
+  }
+
+  // const [DATA, updateData] = useState([]);
+  // useEffect(() => {
+  //   const getData = async ()=>{
+  //     const listes = collection(db, 'public');
+  //     const listeSnapshot = await getDocs(listes);
+  //     let id = 1;
+  //     listeSnapshot.forEach((doc) => {
+  //       let nom = doc.id;
+  //       updateData([...DATA, ...{id: id, title: nom}])
+  //       id += 1;
+  //     });
+  //     getData
+  //   }
+  // }, []);
+
+  const DATA = [
+    {
+      id: 1,
+      title: 'Test',
+    },
+    {
+      id: 'Maths',
+      title: 'Calculs',
+    },
+    {
+      id: 'Animaux',
+      title: 'Animaux/Pets',
+    },
+  ];
     
+  const Item = ({ title }) => ( 
+    <View style={styles.item}>
+      <TouchableOpacity onPress={getData}>  
+        <Text style={styles.title}>{title}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+  const renderItem = ({ item }) => (
+    <Item title={item.title} />
+  );
+
+  const getData = async ()=>{
+    const listes = collection(db, 'public');
+    const listeSnapshot = await getDocs(listes);
+    let id = 1;
+    listeSnapshot.forEach((doc) => {
+      //let nom = doc.id;
+      //updateData([...DATA, ...{id: id, title: nom}])
+      //id += 1;
+      console.log(doc.id);
+      getDataList(doc.id);
+    });
+  }
+
+  const getDataList = async (liste) => {
+    const cartes = collection(db, 'public/' + liste + '/cartes');
+    const carteSnapshot = await getDocs(cartes);
+    carteSnapshot.forEach((carte) => {
+      console.log(carte.data());
+    })
+  }
+
+  return (
+    <View style={styles.container}>
+      <FlatList style={styles.flatList}
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
+    </View>
+  );  
 }
 
 const styles = StyleSheet.create({
