@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, FlatList,TouchableOpacity } from 'react-native';
 import React from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
 
 export default function ListDeck({navigation}){
     const deck = () => {
@@ -32,10 +31,6 @@ export default function ListDeck({navigation}){
       );
     return (
         <View style={styles.container}>
-            <LinearGradient 
-                colors={['#00A2E8', '#fff']} 
-                style={styles.gradient} 
-            />
             <FlatList style={styles.flatList}
                 data={DATA}
                 renderItem={renderItem}
@@ -53,11 +48,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    gradient: {
-        width: '100%',
-        height: '100%',
-        position:'absolute',
-      },
     flatList:{
         marginTop:10,
         margin:5,
@@ -65,15 +55,15 @@ const styles = StyleSheet.create({
         height:'100%'
     },
     item: {
-        backgroundColor: '#fff', //e6eeff
+        backgroundColor: '#DAF0FA', //e6eeff
         padding: 28,
         marginVertical: 8,
         marginHorizontal: 16,
         borderRadius:20,
         shadowColor: "#000",
         shadowOffset: {
-            width: 0,
-            height: 1,
+          width: 0,
+          height: 1,
         },
         shadowOpacity: 0.40,
         shadowRadius: 1.41,
@@ -81,5 +71,6 @@ const styles = StyleSheet.create({
       },
       title: {
         fontSize: 20,
+        color:'#00A2E8'
       },
 });

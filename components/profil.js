@@ -74,11 +74,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-gradient: {
-    width: '100%',
-    height: '100%',
-    position:'absolute',
-  },
 flatList:{
     marginTop:10,
     margin:5,
