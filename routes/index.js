@@ -72,7 +72,7 @@ export default function Index() {
         <Drawer.Screen options={{drawerIcon: () => (<EvilIcons name="user" size={27} color="black" /> )}} name="Profil" component={Profil} />
         <Drawer.Screen options={{drawerIcon: () => (<MaterialCommunityIcons name="cards-outline" size={24} color="black" /> )}} name="ListDeck" component={ListDeck} />
         <Drawer.Screen options={{drawerIcon: () => (<Ionicons name="information-circle-outline" size={24} color="black" /> )}}name="A propos" component={About} />
-        <Drawer.Screen options={{drawerIcon: () => (<Ionicons name="power" size={24} color="#f05454" />)}} name="Déconnexion" component={Accueil} />
+        <Drawer.Screen options={{headerShown:false, drawerIcon: () => (<Ionicons name="power" size={24} color="#f05454" />)}} name="Déconnexion" component={Accueil} />
         {/* modifier le name en fonction du deck */}
         <Drawer.Screen options={{drawerItemStyle: {display: "none"}}} name="Deck" component={Deck} /> 
 
