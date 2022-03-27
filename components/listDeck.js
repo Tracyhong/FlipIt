@@ -4,18 +4,24 @@ import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import {useEffect, useState} from 'react';
 
-// const getDataList = async (liste) => {
-//   const cartes = collection(db, 'public/' + liste + '/cartes');
-//   const carteSnapshot = await getDocs(cartes);
-//   carteSnapshot.forEach((carte) => {
-//     console.log(carte.data());
-//   })
-// }
+
 
 export default function ListDeck({navigation}) {
     
   const deck = () => {
     navigation.navigate('Deck')   //modif redirection apres connexion
+  }
+  const getDataList = async (liste) => {
+    const cartes = collection(db, 'public/' + liste + '/cartes');
+    const carteSnapshot = await getDocs(cartes);
+    let cards=[];
+    carteSnapshot.forEach((carte) => {
+      // console.log(carte.data().back);
+      cards.push({front:carte.data().front, back:carte.data().back})
+    })
+    // console.log('cards');
+    // console.log(cards);
+    return cards
   }
 
   const [DATA, setData] = useState([]);
@@ -24,21 +30,46 @@ export default function ListDeck({navigation}) {
     const listeSnapshot = await getDocs(colRef);
     let i = 1;
     let tabList = [];
-    listeSnapshot.forEach((doc) => {
-      tabList.push({id: i, title: doc.id})
-      i += 1;
-    });
-    setData(tabList)
-  }, []);
+    listeSnapshot.forEach((doc) => { 
+      
+      // tabListCard=getDataList(doc.id)
+      // console.log(tabListCard)
 
+      var data=[]
+      Promise.resolve(getDataList(doc.id)).then(value=>{
+      // data = value;
+      // console.log('value:',value)
+        value.forEach((v)=>{
+          data.push({front:v.front,back:v.back})
+          // console.log(data)
+        }) 
+        // console.log(data) //data existe 
+        tabList.push({id: i, title: doc.id, cartes:data}) //
+        i += 1;
+    setData(tabList)
+      }) 
+      // console.log(data) //data existe plus
+       
+    });
+    // console.log(DATA)  
+  }, []); 
   return (
     <View style={styles.container}>
       {/* {console.log(DATA)} */}
       <FlatList style={styles.flatList}
         data={DATA}
         renderItem={({item}) => 
-          <View style={styles.item}>
-            <TouchableOpacity onPress={deck}>  
+          <View style={styles.item}> 
+            {/* <TouchableOpacity  onPress={(deck, item={item})}>   */}
+
+            <TouchableOpacity   onPress={() => {
+              /* 1. Navigate to the Details route with params */
+              navigation.navigate('Deck', {
+                cards:item.cartes
+              });
+            }}
+            >
+
               <Text style={styles.title}>{item.title}</Text>
             </TouchableOpacity>
           </View>
@@ -73,7 +104,7 @@ const styles = StyleSheet.create({
           height: 1,
         },
         shadowOpacity: 0.40,
-        shadowRadius: 1.41,
+        shadowRadius: 1.41, 
         elevation: 5,
       },
       title: {
