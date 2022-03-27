@@ -27,6 +27,20 @@ const Profil = ({navigation}) =>  {
 
   const [user, setUser] = useState('');
   const [DATA, setData] = useState([]);
+
+  const getDataList = async (liste) => {
+    const cartes = collection(db, 'public/' + liste + '/cartes');
+    const carteSnapshot = await getDocs(cartes);
+    let cards=[];
+    carteSnapshot.forEach((carte) => {
+      // console.log(carte.data().back);
+      cards.push({front:carte.data().front, back:carte.data().back})
+    })
+    // console.log('cards');
+    // console.log(cards);
+    return cards
+  }
+
   useEffect(async() => {
     const u = auth.currentUser
     setUser(u);
@@ -36,10 +50,25 @@ const Profil = ({navigation}) =>  {
     let i = 1;
     let tabList = [];
     listeSnapshot.forEach((doc) => {
-      tabList.push({id: i, title: doc.id})
-      i += 1;
+
+      var data=[]
+      Promise.resolve(getDataList(doc.id)).then(value=>{
+      // data = value;
+      // console.log('value:',value)
+        value.forEach((v)=>{
+          data.push({front:v.front,back:v.back})
+          // console.log(data)
+        }) 
+        // console.log(data) //data existe 
+        tabList.push({id: i, title: doc.id, cartes:data}) //
+        i += 1;
+        setData(tabList)
+         
+      }) 
+      // tabList.push({id: i, title: doc.id})
+      // i += 1;
     });
-    setData(tabList)
+    // setData(tabList)
   }, []);
 
   // const createList = (name, front, back)=>{
@@ -60,7 +89,12 @@ const Profil = ({navigation}) =>  {
                 data={DATA}
                 renderItem={({item}) => 
                 <View style={styles.item}>
-                  <TouchableOpacity onPress={deck}>  
+                  <TouchableOpacity onPress={() => {
+              /* 1. Navigate to the Details route with params */
+                    navigation.navigate('Deck', {
+                      cards:item.cartes
+                    });
+                  }}>  
                     <Text style={styles.title}>{item.title}</Text>
                   </TouchableOpacity>
                 </View>

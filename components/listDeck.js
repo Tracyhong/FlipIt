@@ -65,7 +65,7 @@ export default function ListDeck({navigation}) {
             <TouchableOpacity   onPress={() => {
               /* 1. Navigate to the Details route with params */
               navigation.navigate('Deck', {
-                cards:item.cartes
+                cards:item.cartes //envoyer la liste des cartes pour chaque deck en props 
               });
             }}
             >
