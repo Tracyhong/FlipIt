@@ -5,30 +5,14 @@ import { auth } from '../firebase';
 import { signOut } from "firebase/auth";
 import {useEffect, useState} from 'react';
 import { EvilIcons } from '@expo/vector-icons';
+import { db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore/lite';
 
 const Profil = ({navigation}) =>  {
-  const DATA = [
-    {
-      id: 'Pays',
-      title: 'Drapeaux',
-    },
-    {
-      id: 'Maths',
-      title: 'Calculs',
-    },
-    {
-      id: 'Animaux',
-      title: 'Animaux/Pets',
-    },
-  ];
-  const Item = ({ title }) => ( 
-    <View style={styles.item}> 
-        <Text style={styles.title}>{title}</Text>
-    </View>
-  );
-  const renderItem = ({ item }) => (
-    <Item title={item.title} />
-  );
+
+  const deck = () => {
+    navigation.navigate('Deck')   //modif redirection apres connexion
+  }
 
   const deconnexion = () => {
     signOut(auth)
@@ -42,9 +26,29 @@ const Profil = ({navigation}) =>  {
   };
 
   const [user, setUser] = useState('');
-  useEffect(() => {
-    setUser(auth.currentUser);
+  const [DATA, setData] = useState([]);
+  useEffect(async() => {
+    const u = auth.currentUser
+    setUser(u);
+
+    const colRef = collection(db, 'privee/'+u.uid+'/Listes');
+    const listeSnapshot = await getDocs(colRef);
+    let i = 1;
+    let tabList = [];
+    listeSnapshot.forEach((doc) => {
+      tabList.push({id: i, title: doc.id})
+      i += 1;
+    });
+    setData(tabList)
   }, []);
+
+  // const createList = (name, front, back)=>{
+  //   const newList = doc(db, 'privee', user.id, name)
+  //   .doc(user.id)
+  //   .collection(name)
+  //   .doc(collection(db, 'privee/'+name))
+  //   .set({"front": front, "back": back})
+  // }
 
   return (
     <View style={styles.container}>
@@ -54,8 +58,13 @@ const Profil = ({navigation}) =>  {
       <StatusBar style="auto" />
             <FlatList style={styles.flatList}
                 data={DATA}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
+                renderItem={({item}) => 
+                <View style={styles.item}>
+                  <TouchableOpacity onPress={deck}>  
+                    <Text style={styles.title}>{item.title}</Text>
+                  </TouchableOpacity>
+                </View>
+              } 
             />
             <TouchableOpacity style={styles.logOutBtn} onPress={deconnexion}>
               <Text style={styles.logOutText}>SE DECONNECTER</Text>
