@@ -28,8 +28,8 @@ const Profil = ({navigation}) =>  {
   const [user, setUser] = useState('');
   const [DATA, setData] = useState([]);
 
-  const getDataList = async (liste) => {
-    const cartes = collection(db, 'public/' + liste + '/cartes');
+  const getDataList = async (user,liste) => {
+    const cartes = collection(db, 'privee/'+user+'/Listes/' + liste + '/cartes');
     const carteSnapshot = await getDocs(cartes);
     let cards=[];
     carteSnapshot.forEach((carte) => {
@@ -37,7 +37,7 @@ const Profil = ({navigation}) =>  {
       cards.push({front:carte.data().front, back:carte.data().back})
     })
     // console.log('cards');
-    // console.log(cards);
+    console.log(cards);
     return cards
   }
 
@@ -52,7 +52,7 @@ const Profil = ({navigation}) =>  {
     listeSnapshot.forEach((doc) => {
 
       var data=[]
-      Promise.resolve(getDataList(doc.id)).then(value=>{
+      Promise.resolve(getDataList(u.uid,doc.id)).then(value=>{
       // data = value;
       // console.log('value:',value)
         value.forEach((v)=>{
@@ -85,7 +85,9 @@ const Profil = ({navigation}) =>  {
       <Text style={{fontSize:20, color:"#00A2E8"}}>{user.email}</Text>
       <Text style={{paddingTop:30, fontSize:20, fontWeight:'bold' ,alignSelf:'center', color:'#00A2E8'}}>Mes listes</Text>
       <StatusBar style="auto" />
+      {/* {console.log(DATA)} */}
             <FlatList style={styles.flatList}
+            
                 data={DATA}
                 renderItem={({item}) => 
                 <View style={styles.item}>

@@ -65,11 +65,13 @@ export default function ListDeck({navigation}) {
             <TouchableOpacity   onPress={() => {
               /* 1. Navigate to the Details route with params */
               navigation.navigate('Deck', {
-                cards:item.cartes //envoyer la liste des cartes pour chaque deck en props 
+                cards:item.cartes 
+                // props pour envoyer la liste des cartes du deck 
               });
             }}
             >
 
+           
               <Text style={styles.title}>{item.title}</Text>
             </TouchableOpacity>
           </View>
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
           height: 1,
         },
         shadowOpacity: 0.40,
-        shadowRadius: 1.41, 
+        shadowRadius: 1.41,
         elevation: 5,
       },
       title: {
