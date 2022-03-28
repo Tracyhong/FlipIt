@@ -6,10 +6,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import {useState} from 'react';
 
 const Connexion = ({navigation}) => {
-  const accueil = () => {
-    navigation.navigate('ListDeck')   //modif redirection apres connexion //mettre Accueil pour acceder a la page accueil avec les autres boutons
-  }
-
   const [email, setEmail] = useState('');
   const [mdp, setMdp] = useState('');
   const connexion = () => {

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TextInput,TouchableOpacity, Modal, FlatList  } from 'react-native';
 import 'react-native-gesture-handler';
 import React from 'react';
-import { addDoc, collection, updateDoc, deleteField, setDoc, doc, getDoc } from "firebase/firestore/lite";
+import { addDoc, collection, updateDoc, deleteField, setDoc, doc } from "firebase/firestore/lite";
 import { auth } from '../firebase';
 import { db } from '../firebase';
 

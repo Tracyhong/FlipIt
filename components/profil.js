@@ -2,17 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import { auth } from '../firebase';
-import { signOut } from "firebase/auth";
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { EvilIcons } from '@expo/vector-icons';
 import { db } from '../firebase';
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore/lite';
 
 const Profil = ({navigation}) =>  {
-
-  const deck = () => {
-    navigation.navigate('Deck')   //modif redirection apres connexion
-  }
 
   const ajout =()=>{
     navigation.navigate('Ajout');
@@ -32,6 +27,18 @@ const Profil = ({navigation}) =>  {
     // console.log('cards');
     console.log(cards);
     return cards
+  }
+
+  const supprimer =async(liste)=>{
+    const colRef = collection(db, 'privee/'+user.uid+'/Listes/'+ liste + '/cartes');
+    const listeSnapshot = await getDocs(colRef);
+    listeSnapshot.forEach(async(document) => {
+      await deleteDoc(doc(db, "privee/"+user.uid+'/Listes/'+ liste + '/cartes', document.id));
+    });
+    await deleteDoc(doc(db, "privee/"+user.uid+'/Listes', liste));
+    var array = [...DATA];
+    var newArray = array.filter((item) => item.title !== liste);
+    setData(newArray);
   }
 
   useEffect(async() => {
@@ -64,14 +71,6 @@ const Profil = ({navigation}) =>  {
     // setData(tabList)
   }, []);
 
-  // const createList = (name, front, back)=>{
-  //   const newList = doc(db, 'privee', user.id, name)
-  //   .doc(user.id)
-  //   .collection(name)
-  //   .doc(collection(db, 'privee/'+name))
-  //   .set({"front": front, "back": back})
-  // }
-
   return (
     <View style={styles.container}>
       <EvilIcons name="user" size={80} color="#00A2E8" />
@@ -80,10 +79,17 @@ const Profil = ({navigation}) =>  {
       <StatusBar style="auto" />
       {/* {console.log(DATA)} */}
             <FlatList style={styles.flatList}
-            
                 data={DATA}
                 renderItem={({item}) => 
                 <View style={styles.item}>
+                    <TouchableOpacity style={styles.modifBtn} onPress={()=>{
+                      navigation.navigate('Modifier', {titre:item.title});
+                      }}>
+                      <Text style={styles.logOutText}>Modifier</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.suppBtn} onPress={()=> supprimer(item.title)}>
+                      <Text style={styles.logOutText}>Supprimer</Text>
+                    </TouchableOpacity>
                   <TouchableOpacity onPress={() => {
               /* 1. Navigate to the Details route with params */
                     navigation.navigate('Deck', {
@@ -150,5 +156,21 @@ item: {
 logOutText:{
   color: 'white',
   fontWeight: 'bold',
-}
+},
+modifBtn:{
+  top: 5,
+  right: 10,
+  position: 'absolute',
+  borderRadius:25,
+  alignItems:"center",
+  justifyContent:"center",
+},
+suppBtn:{
+  top: 5,
+  right: 70,
+  position: 'absolute',
+  borderRadius:25,
+  alignItems:"center",
+  justifyContent:"center",
+},
 });
