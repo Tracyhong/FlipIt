@@ -14,19 +14,26 @@ const Profil = ({navigation}) =>  {
     navigation.navigate('Deck')   //modif redirection apres connexion
   }
 
-  const deconnexion = () => {
-    signOut(auth)
-    .then((re)=>{
-      console.log(auth.currentUser);
-      navigation.navigate('Accueil');
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  };
+  const ajout =()=>{
+    navigation.navigate('Ajout');
+  }
 
   const [user, setUser] = useState('');
   const [DATA, setData] = useState([]);
+
+  const getDataList = async (user,liste) => {
+    const cartes = collection(db, 'privee/'+user+'/Listes/' + liste + '/cartes');
+    const carteSnapshot = await getDocs(cartes);
+    let cards=[];
+    carteSnapshot.forEach((carte) => {
+      // console.log(carte.data().back);
+      cards.push({front:carte.data().front, back:carte.data().back})
+    })
+    // console.log('cards');
+    console.log(cards);
+    return cards
+  }
+
   useEffect(async() => {
     const u = auth.currentUser
     setUser(u);
@@ -36,10 +43,25 @@ const Profil = ({navigation}) =>  {
     let i = 1;
     let tabList = [];
     listeSnapshot.forEach((doc) => {
-      tabList.push({id: i, title: doc.id})
-      i += 1;
+
+      var data=[]
+      Promise.resolve(getDataList(u.uid,doc.id)).then(value=>{
+      // data = value;
+      // console.log('value:',value)
+        value.forEach((v)=>{
+          data.push({front:v.front,back:v.back})
+          // console.log(data)
+        }) 
+        // console.log(data) //data existe 
+        tabList.push({id: i, title: doc.id, cartes:data}) //
+        i += 1;
+        setData(tabList)
+         
+      }) 
+      // tabList.push({id: i, title: doc.id})
+      // i += 1;
     });
-    setData(tabList)
+    // setData(tabList)
   }, []);
 
   // const createList = (name, front, back)=>{
@@ -56,18 +78,25 @@ const Profil = ({navigation}) =>  {
       <Text style={{fontSize:20, color:"#00A2E8"}}>{user.email}</Text>
       <Text style={{paddingTop:30, fontSize:20, fontWeight:'bold' ,alignSelf:'center', color:'#00A2E8'}}>Mes listes</Text>
       <StatusBar style="auto" />
+      {/* {console.log(DATA)} */}
             <FlatList style={styles.flatList}
+            
                 data={DATA}
                 renderItem={({item}) => 
                 <View style={styles.item}>
-                  <TouchableOpacity onPress={deck}>  
+                  <TouchableOpacity onPress={() => {
+              /* 1. Navigate to the Details route with params */
+                    navigation.navigate('Deck', {
+                      cards:item.cartes
+                    });
+                  }}>  
                     <Text style={styles.title}>{item.title}</Text>
                   </TouchableOpacity>
                 </View>
               } 
             />
-            <TouchableOpacity style={styles.logOutBtn} onPress={deconnexion}>
-              <Text style={styles.logOutText}>SE DECONNECTER</Text>
+            <TouchableOpacity style={styles.logOutBtn} onPress={ajout}>
+              <Text style={styles.logOutText}>AJOUTER</Text>
             </TouchableOpacity>
     </View>
     

@@ -2,24 +2,38 @@ import { StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import FlipCard from 'react-native-flip-card';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-export default function Deck(){
 
- 
+import {useState,useEffect} from 'react';
+
+export default function Deck({route}){
     //A FAIRE AVEC FIREBASE !!!!!!
-    const DATA  = [
-        { front: '../assets/images/france.png',back: 'France'},
-        { front: '../assets/images/allemagne.png', back: 'Allemagne'},
-        { front: '../assets/images/japon.png', back: 'Japon'}
-    ];
+    // const DATA  = [
+    //     { front: '../assets/images/france.png',back: 'France'},
+    //     { front: '../assets/images/allemagne.png', back: 'Allemagne'},
+    //     { front: '../assets/images/japon.png', back: 'Japon'}
+    // ];
+    const { cards } = route.params; //recuperer la props envoyé par le onPress
+    console.log(cards.length)
+    console.log(cards)
+    
+    
+    const [count, setCount] = useState(0);
+    const [cardFront, setCardFront] = useState('');
+    const [cardBack, setCardBack] = useState('');
+    useEffect(() => {
+        setCardFront(cards[count].front);
+        setCardBack(cards[count].back);
+      });
+    const onPress = () => {
+        if(count==cards.length-1){
+            
+            setCount(prevCount => prevCount = 0);
+        }
+        else {setCount(prevCount => prevCount + 1);}
 
-    // counter=()=>{
-
-    // }
-    //const id = 2;
-    //const index = DATA.map(function(x) {return x.id; }).indexOf(id);
-  
-    // DATA[index].name = "Mehul Bagada";
-
+        setCardFront(cards[count].front);
+        setCardBack(cards[count].back);
+    }
 
     return (
         <View style={styles.container}>
@@ -34,12 +48,14 @@ export default function Deck(){
                 onFlipEnd={(isFlipEnd)=>{console.log('isFlipEnd', isFlipEnd)}}
                 >
                 {/* Face Side */}
-                <View style={styles.face}>
-                    <Text>The Face</Text>
+                <View style={styles.card}>
+                    <Text>{count+1}</Text>
+                    <Text style={styles.cardText}>{cardFront}</Text>
                 </View>
                 {/* Back Side */}
-                <View style={styles.back}>
-                    <Text>The Back</Text>
+                <View style={styles.card}>
+                    <Text>{count+1}</Text>
+                    <Text style={styles.cardText}>{cardBack}</Text>
                 </View>
             </FlipCard>
             {/* <Text>Clic to flip ! (mais ca marche pas encore parce que jai rien fait encore j'en ai un peu marre donc si quelquun peut faire aussi ca serait tres cool merci :D  !)</Text>
@@ -47,7 +63,8 @@ export default function Deck(){
                <Image style={styles.content} source={require('../assets/images/france.png')} /> 
            </Text>
            <Text>Pour l'instant ya que un drapeau de la france parce que jsais pas faire pour que ca soit dynamique et jai la flemme aussi ... et en plus le drapeau n'est pas responsive mdr</Text> */}
-           <TouchableOpacity style={styles.next} /*onPress={}*/>  
+           <Text>Nombres de cartes : {cards.length}</Text>
+           <TouchableOpacity style={styles.next} onPress={onPress}>  
                 <Text style={styles.buttonText}>NEXT</Text>
             </TouchableOpacity>
         </View>
@@ -71,11 +88,14 @@ const styles = StyleSheet.create({
         backgroundColor:'#FBFBFB',
         borderRadius:15,
         padding: 10,
-        fontSize:12,
+    },
+    card:{
         alignItems: 'center',
-        justifyContent: 'center',
-        textAlign:'center',
-        textAlignVertical:'center',
+        flex:1,
+        justifyContent:'center'
+    },
+    cardText:{
+        fontSize:50,
     },
     next:{
       height: 40,

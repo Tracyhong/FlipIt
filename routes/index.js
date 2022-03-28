@@ -5,9 +5,9 @@ import ListDeck from '../components/listDeck';
 import Deck from '../components/deck';
 import Inscription from '../components/inscription';
 import About from '../components/about';
+import Ajout from '../components/ajout';
 import {
   View,
-  Text,
   Image,
 } from 'react-native';
 
@@ -67,6 +67,7 @@ export default function Index() {
         <Drawer.Screen options={{headerShown:false, swipeEdgeWidth: 0,drawerItemStyle: {display: "none"}}} name="Connexion" component={Connexion} />
         <Drawer.Screen options={{headerShown:false, swipeEdgeWidth: 0,drawerItemStyle: {display: "none"}}} name="Inscription" component={Inscription} />
         <Drawer.Screen options={{headerShown:false, swipeEdgeWidth: 0,drawerItemStyle: {display: "none"}}} name="Accueil" component={Accueil} />
+        <Drawer.Screen options={{headerShown:false, swipeEdgeWidth: 0,drawerItemStyle: {display: "none"}}} name="Ajout" component={Ajout} />
         <Drawer.Screen options={{drawerIcon: () => (<EvilIcons name="user" size={27} color="black" /> )}} name="Profil" component={Profil} />
         <Drawer.Screen options={{drawerIcon: () => (<MaterialCommunityIcons name="cards-outline" size={24} color="black" /> )}} name="ListDeck" component={ListDeck} />
         <Drawer.Screen options={{drawerIcon: () => (<Ionicons name="information-circle-outline" size={24} color="black" /> )}}name="A propos" component={About} />
