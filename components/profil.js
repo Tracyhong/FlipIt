@@ -4,6 +4,8 @@ import 'react-native-gesture-handler';
 import { auth } from '../firebase';
 import React, {useEffect, useState} from 'react';
 import { EvilIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+
 import { db } from '../firebase';
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore/lite';
 
@@ -85,10 +87,12 @@ const Profil = ({navigation}) =>  {
                     <TouchableOpacity style={styles.modifBtn} onPress={()=>{
                       navigation.navigate('Modifier', {titre:item.title});
                       }}>
-                      <Text style={styles.logOutText}>Modifier</Text>
+                        <EvilIcons name="pencil" size={32} color="blue" />
+                      {/* <Text style={styles.logOutText}>Modifier</Text> */}
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.suppBtn} onPress={()=> supprimer(item.title)}>
-                      <Text style={styles.logOutText}>Supprimer</Text>
+                      {/* <Text style={styles.logOutText}>Supprimer</Text> */}
+                      <AntDesign name="delete" size={24} color="#B22222" />
                     </TouchableOpacity>
                   <TouchableOpacity onPress={() => {
               /* 1. Navigate to the Details route with params */
@@ -159,7 +163,7 @@ logOutText:{
 },
 modifBtn:{
   top: 5,
-  right: 10,
+  right: 16,
   position: 'absolute',
   borderRadius:25,
   alignItems:"center",
@@ -167,7 +171,7 @@ modifBtn:{
 },
 suppBtn:{
   top: 5,
-  right: 70,
+  right: 58,
   position: 'absolute',
   borderRadius:25,
   alignItems:"center",

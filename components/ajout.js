@@ -170,7 +170,8 @@ const styles = StyleSheet.create({
       alignItems:"center",
       justifyContent:"center",
       backgroundColor:'#00A2E8',
-      margin: 5
+      margin: 5,
+      bottom:20
   },
   loginText:{
     color: 'white',

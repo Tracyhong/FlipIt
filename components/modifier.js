@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   },
   loginText:{
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   modalBackGround:{
     flex: 1,

@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
     card:{
         alignItems: 'center',
         flex:1,
-        justifyContent:'center'
+        justifyContent:'center',
+        backgroundColor: '#DAF0FA',
     },
     cardText:{
         fontSize:50,
